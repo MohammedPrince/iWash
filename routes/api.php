@@ -22,6 +22,8 @@ Route::get('/', function () {
     return 'Hi iWash!';
 });
 
+//from here
+
 // Public Routes No --Authentication Required
 Route::middleware(['JsonRes'])
     ->prefix('public')
