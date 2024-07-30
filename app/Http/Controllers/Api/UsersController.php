@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestValidation;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 class UsersController extends Controller
 {
@@ -18,11 +17,26 @@ class UsersController extends Controller
         $this->userService = $userService;
     }
 
-    public function index()
+    public function getUsersApi()
     {
-        $data['contact_data'] = $this->userService->getContacts();
+        $result = $this->userService->getUsers();
 
-        return view('index', ['data' => $data]);
+        if ($result['success']) {
+            return response()->json([
+                'users' => [
+                    'status' => 'success',
+                    'message' => 'Users Details',
+                    'data' => $result['users'],
+                ]
+            ], 200);
+        } else {
+            return response()->json([
+                'users' => [
+                    'status' => 'error',
+                    'error' => $result['message']
+                ]
+            ], 422);
+        }
     }
 
     public function addUserApi(RequestValidation $request)
@@ -41,7 +55,9 @@ class UsersController extends Controller
                 'status' => 'success',
                 'message' => 'User added successfully',
                 'role_id' => $result['role_id'],
-                'name' => $result['name'],
+                'first_name' => $result['first_name'],
+                'last_name' => $result['last_name'],
+                'username' => $result['username'],
                 'token' => $result['token'],
                 'token_type' => $result['token_type']
             ]], 201);
@@ -66,7 +82,9 @@ class UsersController extends Controller
                 'status' => 'success',
                 'message' => 'User logged in successfully',
                 'role_id' => $result['role_id'],
-                'name' => $result['name'],
+                'first_name' => $result['first_name'],
+                'last_name' => $result['last_name'],
+                'username' => $result['username'],
                 'token' => $result['token'],
                 'token_type' => $result['token_type']
             ]], 200);
@@ -95,8 +113,9 @@ class UsersController extends Controller
                 'status' => 'success',
                 'message' => 'User Details',
                 'role_id' => $result['role_id'],
-                'name' => $result['name'],
                 'username' => $result['username'],
+                'first_name' => $result['first_name'],
+                'last_name' => $result['last_name'],
                 'phone' => $result['phone'],
                 'email' => $result['email'],
                 'image_url' => $result['image_url'],
@@ -128,7 +147,8 @@ class UsersController extends Controller
                 'status' => 'success',
                 'message' => 'User Info Updated successfully',
                 'role_id' => $result['role_id'],
-                'name' => $result['name'],
+                'first_name' => $result['first_name'],
+                'last_name' => $result['last_name'],
                 'username' => $result['username'],
                 'phone' => $result['phone'],
                 'email' => $result['email']

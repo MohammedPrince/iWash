@@ -22,14 +22,14 @@ Route::get('/', function () {
     return 'Hi iWash!';
 });
 
-//from here
-
 // Public Routes No --Authentication Required
 Route::middleware(['JsonRes'])
     ->prefix('public')
     ->namespace('App\Http\Controllers\Api')
     ->group(function () {
-        // Users Api (Register,Edit,Del,Login and Logout -- Users)
+
+        // Users Api (getUsers,Register -- Users)
+        Route::get('/GetUsers', 'UsersController@getUsersApi');
         Route::post('/AddUser', 'UsersController@addUserApi');
         Route::post('/UserLogin', 'UsersController@userLoginApi');
     });
@@ -40,29 +40,55 @@ Route::prefix('public')
     ->middleware(['api', 'auth:sanctum' , 'JsonRes'])
     ->group(function () {
 
-        Route::get('/GetUserById/{id}', 'UsersController@GetUserByIdApi')->middleware(['api', 'auth:sanctum']);
-        Route::post('/UpdateUser/{id}', 'UsersController@UpdateUserAPI')->middleware(['api', 'auth:sanctum']);
-        Route::get('/DeleteUser/{id}', 'UsersController@DeleteUserAPI')->middleware(['api', 'auth:sanctum']);
-        
-        Route::post('/logout', 'UsersController@userLogoutApi')->middleware(['api', 'auth:sanctum']);
+        //Users CURD for Authentication Users Only
+        Route::get('/GetUserById/{id}', 'UsersController@GetUserByIdApi');
+        Route::post('/UpdateUser/{id}', 'UsersController@UpdateUserAPI');
+        Route::get('/DeleteUser/{id}', 'UsersController@DeleteUserAPI');
+        Route::post('/logout', 'UsersController@userLogoutApi');
 
     });
 
 // Admin Protected Routes
 Route::prefix('admin')
     ->namespace('App\Http\Controllers\Api\Admin')
-    // ->middleware(['api', 'auth:sanctum'])
+    ->middleware(['api', 'auth:sanctum' , 'JsonRes'])
     ->group(function () {
-        // Route::get('/', 'AdminController@index');
-        // Route::post('/addAdmin', 'AdminController@addAdmin');
-        // Route::post('/createOffer', 'OfferController@createOffer');
-        // Route::get('/getOffers', 'OfferController@getOffers');
+
+        //Manage Roles: Add,Update and Delete Users Role (Ex: Customer,Service Provider,Service Admin and Super Admin).
+        Route::get('/GetRoles', 'AdminController@getRolesApi');
+        Route::post('/AddRole', 'AdminController@addRolesApi');
+        Route::get('/GetRoleById/{id}', 'AdminController@GetRoleByIdApi');
+        Route::post('/UpdateRole/{id}', 'AdminController@UpdateRoleAPI');
+        Route::get('/DeleteRole/{id}', 'AdminController@DeleteRoleAPI');
+
+        //Manage Services: Add,Update and Delete Services (Ex: Car Wash, Car Wax, Full Service).
+        Route::get('/GetServices', 'AdminController@getServicesApi');
+        Route::post('/AddService', 'AdminController@addServicesApi');
+        Route::get('/GetServiceById/{id}', 'AdminController@GetServiceByIdApi');
+        Route::post('/UpdateService/{id}', 'AdminController@UpdateServiceAPI');
+        Route::get('/DeleteService/{id}', 'AdminController@DeleteServiceAPI');
+
     });
 
 // Customers Protected Routes
-Route::prefix('customers')
+Route::prefix('customer')
     ->namespace('App\Http\Controllers\Api\Customers')
-    // ->middleware(['api', 'auth:sanctum'])
+    ->middleware(['api', 'auth:sanctum', 'JsonRes'])
     ->group(function () {
-        // Route::get('/', 'CustomersController@index');
+
+        //MainController: Contain functions like (Services list, Offer list ,Car colors list, Car Models list...etc) for auth-customers.
+        Route::get('/GetServices', 'MainController@getServicesApi');
+        Route::get('/GetOffers', 'MainController@getOffersApi');
+        Route::get('/GetCarColors', 'MainController@getCarColorsApi'); //it should be dropdown menu in the app to select car color.
+        Route::get('/GetCarModels', 'MainController@getCarModelsApi'); //it should be dropdown menu in the app to select car model.
+        Route::post('/addVehicle', 'MainController@addVehicleApi');
+
+    });
+
+Route::prefix('service-provider')
+    ->namespace('App\Http\Controllers\Api\ServiceProvider')
+    ->middleware(['api', 'auth:sanctum', 'JsonRes'])
+    ->group(function () {
+        // Service Provider Routes
+        // Define routes for Service Provider here
     });

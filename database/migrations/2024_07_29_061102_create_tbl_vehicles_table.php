@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('color_id');
             $table->string('plate');
             $table->string('mfg');
-            $table->enum('status', ["active","inactive","blocked","deleted"])->default('active');
-            $table->integer('created_by');
+            $table->enum('status', ["active","inactive","blocked","deleted"])->nullable()->default('active');
+            $table->string('make_year')->default('2000')->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
             $table->timestamp('deleted_at')->useCurrent()->nullable();

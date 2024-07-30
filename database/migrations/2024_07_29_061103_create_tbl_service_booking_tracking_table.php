@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('booking_id');
             $table->dateTime('date');
-            $table->enum('status', ["active","inactive","blocked","deleted"])->default('active');
+            $table->enum('status', ["active","inactive","blocked","deleted"])->nullable()->default('active');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
             $table->timestamp('deleted_at')->useCurrent()->nullable();

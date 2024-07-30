@@ -16,8 +16,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('review_count');
-            $table->integer('rating_count');
-            $table->bigInteger('rating_value');
+            $table->double('rating_value');
             $table->enum('status', ["active","inactive","blocked","deleted"])->nullable()->default('active');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();

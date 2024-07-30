@@ -14,10 +14,10 @@ return new class extends Migration
        
         Schema::create('tbl_service_provider_rating', function (Blueprint $table) {
             $table->id();
-            $table->integer('service_provider_id')->comment('service_provider_id from users table when role == servie provider name');
+            $table->integer('service_provider_id')->comment('service_provider_id from users table when role == servie provider');
             $table->integer('booking_id');
             $table->integer('customer_id');
-            $table->integer('rating');
+            $table->double('rating');
             $table->dateTime('date');
             $table->enum('status', ["active","inactive","blocked","deleted"])->nullable()->default('active');
             $table->timestamp('created_at')->useCurrent()->nullable();

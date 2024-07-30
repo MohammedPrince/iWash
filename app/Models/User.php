@@ -16,7 +16,8 @@ class User extends Authenticatable
 
     public static function create(array $data){
         $u = new User();
-        $u->name = $data['name'];
+        $u->first_name = $data['first_name'];
+        $u->last_name = $data['last_name'];
         $u->username = $data['username'];
         $u->password = bcrypt($data['password']);
         $u->phone = $data['phone'];
@@ -32,5 +33,9 @@ class User extends Authenticatable
         return $u->id;
     }
 
+
+    public function userRole(){
+        return $this->belongsTo(UserRole::class, 'role_id', 'id');
+    }
 
 }

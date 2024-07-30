@@ -27,14 +27,16 @@ class RequestValidation extends FormRequest
     {
 
         $validator = Validator::make($data, [
-            'name' => 'required|string|max:20|min:5',
+            'first_name' => 'required|string|max:20|min:5',
+            'last_name' => 'required|string|max:20|min:5',
             'username' => 'required|string|max:255|unique:tbl_users',
-            'phone' => 'required|string|max:14|unique:tbl_users',
+            'phone' => 'required|numeric|max:14|unique:tbl_users',
             'email' => 'required|string|max:50|unique:tbl_users',
             'password' => 'required|max:20|string',
             'role_id' => 'required|string|max:1',
         ], [
-            'name.required' => 'Please Enter User Name',
+            'first_name.required' => 'Please Enter User First Name',
+            'last_name.required' => 'Please Enter User Last Name',
             'username.required' => 'Please Enter User Username',
             'phone.required' => 'Please Enter User Phone',
             'email.required' => 'Please Enter User Email',
@@ -82,7 +84,7 @@ class RequestValidation extends FormRequest
         $validator = Validator::make($data, [
             'name' => 'required|string|max:20|min:5',
             'username' => 'required|string|max:255|',
-            'phone' => 'required|string|max:14|',
+            'phone' => 'required|numeric|max:14|',
             'email' => 'required|string|max:50|',
             'password' => 'required|max:20|string',
             'role_id' => 'required|string|max:1',

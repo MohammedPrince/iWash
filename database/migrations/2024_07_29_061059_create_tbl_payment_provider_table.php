@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->longText('desc');
             $table->enum('status', ["active","inactive","blocked","deleted"])->nullable()->default('active');
-            $table->integer('created_by');
+            $table->integer('created_by')->nullable()->default(0);
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
             $table->timestamp('deleted_at')->useCurrent()->nullable();

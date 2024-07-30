@@ -17,7 +17,7 @@ return new class extends Migration
             $table->longText('desc');
             $table->string('image_url')->nullable()->default('path/to/img');
             $table->enum('status', ["active","inactive","blocked","deleted"])->nullable()->default('active');
-            $table->integer('created_by');
+            $table->integer('created_by')->nullable()->default(0);
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
             $table->timestamp('deleted_at')->useCurrent()->nullable();

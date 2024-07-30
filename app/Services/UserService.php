@@ -2,20 +2,20 @@
 
 namespace App\Services;
 
-use App\Repositories\MyUserRepository;
+use App\Repositories\UserRepository;
 
 class UserService
 {
     protected $userRepository;
 
-    public function __construct(MyUserRepository $userRepository)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    public function getContacts()
+    public function getUsers()
     {
-        return $this->userRepository->getContacts();
+        return $this->userRepository->getUsers();
     }
 
     public function addUser($data)

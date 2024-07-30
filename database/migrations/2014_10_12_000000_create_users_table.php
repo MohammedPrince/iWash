@@ -15,18 +15,19 @@ return new class extends Migration
     {
         Schema::create('tbl_users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('username');
             $table->string('password');
             $table->string('phone');
             $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('verified')->default('no');
+            $table->string('verified')->nullable()->default('no');
             $table->string('image_url');
             $table->integer('role_id');
             $table->enum('login_type', ["mobile","email","google","apple"])->default('mobile');
             $table->string('login_identity');
-            $table->enum('status', ["active","inactive","blocked","deleted"])->default('active');
+            $table->enum('status', ["active","inactive","blocked","deleted"])->nullable()->default('active');
             $table->rememberToken();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->comment('Examples');
             $table->longText('desc');
             $table->double('price');
-            $table->enum('status', ["active","inactive","blocked","deleted"])->default('active');
+            $table->enum('status', ["active","inactive","blocked","deleted"])->nullable()->default('active');
             $table->integer('created_by');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();

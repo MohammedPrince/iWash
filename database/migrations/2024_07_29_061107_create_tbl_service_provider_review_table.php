@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer('service_provider_id')->comment('from users table when role_id == service provider');
             $table->integer('booking_id');
             $table->integer('customer_id')->comment('Foreignkeyto`users`table, identifyingcustomer');
-
             $table->longText('review_text');
             $table->dateTime('date');
             $table->enum('status', ["active","inactive","blocked","deleted"])->nullable()->default('active');
