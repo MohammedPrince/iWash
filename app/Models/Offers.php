@@ -13,6 +13,17 @@ class Offers extends Model
 
     protected $table = "tbl_offers";
 
+    public static function create(array $data){
+        $o = new Offers();
+        $o->service_id = $data['service_id'];
+        $o->name = $data['name'];
+        $o->desc = $data['desc'];
+        $o->discount = $data['discount'];
+   
+        $o->save();
+
+        return $o->id;
+    }
 
     public function forService(){
         return $this->belongsTo(IwashService::class, 'service_id', 'id');

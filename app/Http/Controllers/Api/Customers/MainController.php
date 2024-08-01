@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\Customers;
 
 use App\Http\Controllers\Controller;
-use App\Services\IWashService;
 use App\Http\Requests\GeneralValidation;
+use App\Services\IWashService;
 
 class MainController extends Controller
 {
@@ -60,7 +60,7 @@ class MainController extends Controller
             ], 422);
         }
     }
-
+    
     // Get Car Colors List for Customers
     public function getCarColorsApi()
     {
@@ -100,6 +100,29 @@ class MainController extends Controller
         } else {
             return response()->json([
                 'vehicle_models' => [
+                    'status' => 'error',
+                    'error' => $result['message']
+                ]
+            ], 422);
+        }
+    }
+
+    //Get Payment Providers
+    public function getPaymentProviderApi()
+    {
+        $result = $this->iwashService->getPaymentProvider();
+
+        if ($result['success']) {
+            return response()->json([
+                'payment provider' => [
+                    'status' => 'success',
+                    'message' => 'Payment Provider Details',
+                    'data' => $result['payment_provider'],
+                ]
+            ], 200);
+        } else {
+            return response()->json([
+                'payment_provider' => [
                     'status' => 'error',
                     'error' => $result['message']
                 ]

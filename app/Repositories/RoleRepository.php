@@ -3,8 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\UserRole;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
 class RoleRepository extends BaseRepository
@@ -32,7 +30,6 @@ class RoleRepository extends BaseRepository
                     'status' => $user_role->status,
                     'created_at' => $user_role->created_at,
                     'updated_at' => $user_role->updated_at,
-                    'deleted_at' => $user_role->deleted_at
                 ];
             }
             return ['success' => true, 'roles' => $roles];
@@ -52,7 +49,7 @@ class RoleRepository extends BaseRepository
                 $role = UserRole::find($lastInsertedId);
 
                 return ['success' => true, 'id' => $role->id, 'name' => $role->name, 'desc' => $role->desc, 'status' => $role->status,
-                    'created_at' => $role->created_at, 'updated_at' => $role->updated_at, 'updated_at' => $role->deleted_at];
+                    'created_at' => $role->created_at, 'updated_at' => $role->updated_at];
             } else {
                 return ['success' => false, 'message' => 'Error occurred while adding new role, try again!'];
             }
@@ -66,7 +63,7 @@ class RoleRepository extends BaseRepository
         $id = base64_decode($id);
         if ($role = UserRole::where('status', 'active')->find($id)) {
             return ['success' => true, 'id' => $role->id, 'name' => $role->name, 'desc' => $role->desc, 'status' => $role->status,
-                'created_at' => $role->created_at, 'updated_at' => $role->updated_at, 'updated_at' => $role->deleted_at];
+                'created_at' => $role->created_at, 'updated_at' => $role->updated_at];
         } else {
             return ['success' => false, 'message' => 'Error occurred while getting role information'];
         }
@@ -103,6 +100,7 @@ class RoleRepository extends BaseRepository
         if (count($role) != 0) {
             $r = UserRole::find($id);
             $r->status = 'deleted';
+            $r->deleted_at = now();
             if ($r->save()) {
                 return ['success' => true];
             } else {

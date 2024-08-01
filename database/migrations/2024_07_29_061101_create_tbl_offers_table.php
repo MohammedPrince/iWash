@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('service_id');
             $table->string('name');
             $table->longText('desc');
-            $table->bigInteger('discount');
+            $table->bigInteger('discount')->nullable()->default(0);
             $table->enum('status', ["active","inactive","blocked","deleted"])->nullable()->default('active');
             $table->integer('created_by')->nullable()->default(0);
             $table->timestamp('created_at')->useCurrent()->nullable();

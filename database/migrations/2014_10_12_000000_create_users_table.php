@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('role_id');
             $table->enum('login_type', ["mobile","email","google","apple"])->default('mobile');
             $table->string('login_identity');
-            $table->enum('status', ["active","inactive","blocked","deleted"])->nullable()->default('active');
+            $table->enum('status', ["active","inactive","blocked","available","busy","deleted"])->nullable()->default('active');
             $table->rememberToken();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();

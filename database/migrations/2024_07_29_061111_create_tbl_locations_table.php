@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('latitude');
             $table->text('longitude');
             $table->string('address');
-            $table->integer('city');
+            $table->string('city');
             $table->enum('status', ["active","inactive","blocked","deleted"])->nullable()->default('active');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();

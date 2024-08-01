@@ -59,7 +59,8 @@ class UsersController extends Controller
                 'last_name' => $result['last_name'],
                 'username' => $result['username'],
                 'token' => $result['token'],
-                'token_type' => $result['token_type']
+                'token_type' => $result['token_type'],
+                'created_at' => $result['created_at']
             ]], 201);
         } else {
             return response()->json(['user_information' => ['status' => 'error', 'error' => $result['message']]], 422);
@@ -124,7 +125,6 @@ class UsersController extends Controller
                 'status' => $result['status'],
                 'created_at' => $result['created_at'],
                 'updated_at' => $result['updated_at'],
-                'deleted_at' => $result['deleted_at'],
             ]], 200);
         } else {
             return response()->json(['user_information' => ['status' => 'error', 'Error' => $result['message']]], 422);
