@@ -16,3 +16,4 @@ yarn-error.log
 /.vscode
 iwash_ssh_key
 iwash_ssh_key.pub
+iwash.sql
